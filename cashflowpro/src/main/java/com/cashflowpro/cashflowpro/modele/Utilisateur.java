@@ -1,7 +1,11 @@
 package com.cashflowpro.cashflowpro.modele;
 
-public class Employe {
-    public Employe(long matricule, String nom, String prenom, String login, String pwd, Role role) {
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "UTILISATEUR")
+public class Utilisateur {
+    public Utilisateur(long matricule, String nom, String prenom, String login, String pwd, Role role) {
         super();
         this.nom = nom;
         this.prenom = prenom;
@@ -10,7 +14,7 @@ public class Employe {
          this.role=role;
          this.matricule = matricule;
     }
-    public Employe(){
+    public Utilisateur(){
 
     }
 
@@ -19,11 +23,18 @@ public class Employe {
         CLIENT,
         DIRECTEUR
     }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long matricule;
+    @Column(length = 40)
     private String nom;
+    @Column(length = 40)
     private String prenom;
+    @Column(length = 40)
     private String login;
+    @Column(length = 40)
     private String pwd;
+    @Column(length = 40)
     private Role role;
 
     public String getNom() {
