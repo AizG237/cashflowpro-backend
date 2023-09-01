@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @AllArgsConstructor
 @Service
-
 public class AdresseService implements AdresseServiceImpl {
 private final AdresseRepository adresseRepository;
+
     @Override
     public Adresse getAdresse(long id_adresse) {
-        return adresseRepository.findById(id_adresse).orElseThrow(() -> new RuntimeException("Adresse inexistante"));
+       // return adresseRepository.getReferenceById(id_adresse);
+       return adresseRepository.getById(id_adresse);
     }
 
     @Override
