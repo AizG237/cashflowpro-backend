@@ -8,7 +8,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "ADRESSES")
+@Table(name = "addresse")
 public class Adresse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +23,12 @@ public class Adresse {
     private String pobox;
     @Column
     private String quartier;
+
+    public Adresse(String pays, String ville, String region, String pobox, String quartier) {
+        this.pays = pays;
+        this.ville = ville;
+        this.region = region;
+        this.pobox = pobox;
+        this.quartier = quartier;
+    }
 }
