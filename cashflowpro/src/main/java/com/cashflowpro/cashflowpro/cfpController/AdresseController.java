@@ -15,32 +15,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/adresse")
-@AllArgsConstructor
-
 public class AdresseController {
-    private final AdresseServiceImpl adresseService;
-    //@Autowired
+    @Autowired
+    private AdresseServiceImpl adresseServiceImp;
 
     @GetMapping("/getAll")
     public List<Adresse> getAdresse(){
         //Adresse Adresses = new Adresse("DOnfack","Pavel","Login","123", Adresse.Role.Adresse);
-        return adresseService.getAllAdresse();
+        return adresseServiceImp.getAllAdresse();
     }
     @GetMapping("/Adresse/get/{id_adresse}")
     public Adresse getAdresse(@PathVariable long id_adresse){
-        return adresseService.getAdresse(id_adresse);
+        return adresseServiceImp.getAdresse(id_adresse);
     }
     @DeleteMapping("/Adresse/delete/{id_adresse}")
     public void deleteAdresse(@PathVariable long id_adresse){
-        adresseService.deleteAdresse(id_adresse);
+        adresseServiceImp.deleteAdresse(id_adresse);
     }
     @PostMapping("/Adresse/add")
     public Adresse addAdresse(@RequestBody Adresse Adresse){
-        return  adresseService.addAdresse(Adresse);
+        return  adresseServiceImp.addAdresse(Adresse);
     }
     @PutMapping("/Adresse/update/{id_adresse}")
     public String updateAdresse(@PathVariable long id_adresse, @RequestBody Adresse Adresse){
-        adresseService.addAdresse(Adresse);
+        adresseServiceImp.addAdresse(Adresse);
         return "LE STRING LA DERANGE";
     }
 }

@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-//@AllArgsConstructor
+@AllArgsConstructor
 public class AdresseService implements AdresseServiceImpl { // C'est ça qui est l'interface
-    @Autowired
-    private AdresseRepository adresseRepository;
+    //@Autowired
+    private final AdresseRepository adresseRepository;
 
     @Override
     public Adresse getAdresse(long id_adresse) {
        // return adresseRepository.getReferenceById(id_adresse);
-       return adresseRepository.getById(id_adresse);
+       return adresseRepository.findById(id_adresse).get();
     }
 
     @Override
