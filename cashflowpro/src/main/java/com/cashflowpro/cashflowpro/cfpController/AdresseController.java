@@ -4,6 +4,7 @@ package com.cashflowpro.cashflowpro.cfpController;
 import com.cashflowpro.cashflowpro.modele.Adresse;
 import com.cashflowpro.cashflowpro.modele.Utilisateur;
 import com.cashflowpro.cashflowpro.service.AdresseService;
+import com.cashflowpro.cashflowpro.service.AdresseServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 
 public class AdresseController {
-    private final AdresseService adresseService;
+    private final AdresseServiceImpl adresseService;
     //@Autowired
 
     @GetMapping("/getAll")

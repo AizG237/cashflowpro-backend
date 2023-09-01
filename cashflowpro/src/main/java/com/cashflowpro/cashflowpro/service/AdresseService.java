@@ -3,13 +3,16 @@ package com.cashflowpro.cashflowpro.service;
 import com.cashflowpro.cashflowpro.modele.Adresse;
 import com.cashflowpro.cashflowpro.repository.AdresseRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@AllArgsConstructor
+
 @Service
-public class AdresseService implements AdresseServiceImpl {
-private final AdresseRepository adresseRepository;
+//@AllArgsConstructor
+public class AdresseService implements AdresseServiceImpl { // C'est ça qui est l'interface
+    @Autowired
+    private AdresseRepository adresseRepository;
 
     @Override
     public Adresse getAdresse(long id_adresse) {
@@ -30,11 +33,12 @@ private final AdresseRepository adresseRepository;
 
     @Override
     public Adresse addAdresse(Adresse adresse) {
+
         return adresseRepository.save(adresse);
     }
 
     @Override
-    public Adresse updateAdresse(long id_adresse, Adresse adresse) {
+    public Adresse updateAdresse(Long id_adresse, Adresse adresse) {
         return adresseRepository.findById(id_adresse).map( add ->{
             add.setPays(adresse.getPays());
             add.setRegion(adresse.getRegion());

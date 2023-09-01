@@ -9,6 +9,6 @@ public interface AdresseServiceImpl {
     List<Adresse> getAllAdresse();
     String deleteAdresse(long id_adresse);
     Adresse addAdresse(Adresse adresse);
-    Adresse updateAdresse(long matricule, Adresse adresse);
+    Adresse updateAdresse(Long matricule, Adresse adresse);
 
 }
