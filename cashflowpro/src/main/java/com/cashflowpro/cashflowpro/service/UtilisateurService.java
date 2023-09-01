@@ -44,7 +44,7 @@ public class UtilisateurService implements UtilisateurServiceImpl {
                     u.setPrenom(utilisateur.getPrenom());
                     u.setRole(utilisateur.getRole());
                     u.setCompte(utilisateur.getCompte());
-                    u.setDateNaiss(utilisateur.getDateNaiss());
+                    u.setDatenaiss(utilisateur.getDatenaiss());
                     u.setTelephone(utilisateur.getTelephone());
                     return utilisateurRepository.save(u);
                 }).orElseThrow(() -> new RuntimeException("Utilisateur inexistant dans le système"));
