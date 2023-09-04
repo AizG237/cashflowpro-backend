@@ -29,10 +29,11 @@ public class PlanInvestService implements PlanInvestServiceImpl{
     public PlanInvest updatePlaninvest(long id, PlanInvest planInvest) {
         return planInvestRepository.findById(id).map(pi ->{
             pi.setDateinit(planInvest.getDateinit());
-            pi.setDuree(planInvest.getDuree());
+           // pi.setDuree(planInvest.getDuree());
             pi.setNominvest(planInvest.getNominvest());
             pi.setMontantmin(planInvest.getMontantmin());
-            pi.setDuree(planInvest.getDuree());
+            pi.setDureemin(planInvest.getDureemin());
+            pi.setNomactif(planInvest.getNomactif());
             return planInvestRepository.save(pi);
         }).orElseThrow(()-> new RuntimeException("Erreur mise à jour du plan d'investissement"));
     }

@@ -19,7 +19,7 @@ public class PlanInvest {
     @Column
     private String nominvest;
     @Column
-    private int duree;
+    private int dureemin;
     @Column
     private Date dateinit;
     @Column
