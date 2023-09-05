@@ -2,16 +2,16 @@ package com.cashflowpro.cashflowpro.modele;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "UTILISATEUR")
+@Table(name = "utilisateur")
 @AllArgsConstructor
-@Setter
-@Getter
+@Data
 
 public class Utilisateur {
 
@@ -28,21 +28,20 @@ public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long matricule;
     @Column(length = 40)
-    private String nom;
+    protected String nom;
     @Column(length = 40)
-    private String prenom;
+    protected String prenom;
     @Column(length = 40)
-    private String login;
+    protected String login;
     @Column(length = 40)
-    private String pwd;
-    @Column(length = 40)
+    protected String pwd;
+    @Column
     private Role role;
     @Column
-    private float compte;
+    protected float compte;
     @Column
-    private Date datenaiss;
+    protected Date datenaiss;
     @Column
-    private long telephone;
-
+    protected long telephone;
 
 }

@@ -9,6 +9,6 @@ public interface UtilisateurServiceImpl {
     List<Utilisateur> getAllUtilisateur();
     String deleteUtilisateur(long matricule);
     Utilisateur addUtilisateur(Utilisateur utilisateur);
-    Utilisateur updateUtilisateur(Long matricule, Utilisateur utilisateur);
+    Utilisateur updateUtilisateur(long matricule, Utilisateur utilisateur);
 
 }

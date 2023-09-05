@@ -14,32 +14,23 @@ import java.util.List;
 @RestController
 @RequestMapping("/utilisateur")
 @AllArgsConstructor
-@Getter
-@Setter
 public class UtilisateurController {
-    private final UtilisateurServiceImpl utilisateurServiceImpl;
-   // @Autowired
-  //  private UtilisateurService cfpservice;
-    @GetMapping("/Utilisateur/getAll")
-   public List<Utilisateur> getUtilisateur(){
-   //Utilisateur Utilisateurs = new Utilisateur("DOnfack","Pavel","Login","123", Utilisateur.Role.Utilisateur);
-    return utilisateurServiceImpl.getAllUtilisateur();
-   }
-   @GetMapping("/Utilisateur/get/{matricule}")
+private final UtilisateurServiceImpl utilisateurService;
+@GetMapping("/get/all")
+    public List<Utilisateur> getAllUtilisateur(){
+    return utilisateurService.getAllUtilisateur();
+}
+@PutMapping("/update/{id}")
+    public Utilisateur updateUtilisateur(@PathVariable long matricule, @RequestBody Utilisateur utilisateur){
+    return utilisateurService.updateUtilisateur(matricule,utilisateur);
+}
+@DeleteMapping("/delete/{id}")
+    public String deleteUtilisateur(@PathVariable long matricule){
+    return utilisateurService.deleteUtilisateur(matricule);
+}
+@GetMapping("/get/{id}")
     public Utilisateur getUtilisateur(@PathVariable long matricule){
-        return utilisateurServiceImpl.getUtilisateur(matricule);
-    }
-    @DeleteMapping("/Utilisateur/delete/{matricule}")
-    public void deleteUtilisateur(@PathVariable long matricule){
-        utilisateurServiceImpl.deleteUtilisateur(matricule);
-    }
-    @PostMapping("/Utilisateur/add")
-    public Utilisateur addUtilisateur(@RequestBody Utilisateur utilisateur){
-        return  utilisateurServiceImpl.addUtilisateur(utilisateur);
-    }
-    @PutMapping("/Utilisateur/update/{matricule}")
-    public String updateUtilisateur(@PathVariable long matricule, @RequestBody Utilisateur utilisateur){
-              utilisateurServiceImpl.addUtilisateur(utilisateur);
-              return "LE STRING LA DERANGE";
-    }
+    return utilisateurService.getUtilisateur(matricule);
+}
+
 }

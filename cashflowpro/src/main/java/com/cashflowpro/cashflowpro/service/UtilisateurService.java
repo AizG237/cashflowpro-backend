@@ -19,6 +19,7 @@ public class UtilisateurService implements UtilisateurServiceImpl {
 
     @Override
     public List<Utilisateur> getAllUtilisateur() {
+
         return utilisateurRepository.findAll();
     }
 
@@ -35,7 +36,7 @@ public class UtilisateurService implements UtilisateurServiceImpl {
     }
 
     @Override
-    public Utilisateur updateUtilisateur(Long matricule, Utilisateur utilisateur) {
+    public Utilisateur updateUtilisateur(long matricule, Utilisateur utilisateur) {
         return utilisateurRepository.findById(matricule)
                 .map(u-> {
                     u.setLogin(utilisateur.getLogin());
