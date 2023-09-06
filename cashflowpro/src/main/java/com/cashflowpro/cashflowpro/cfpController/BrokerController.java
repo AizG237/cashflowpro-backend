@@ -13,8 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/Broker")
 @AllArgsConstructor
-@Getter
-@Setter
 public class BrokerController {
     private final BrokerService brokerService;
    // @Autowired

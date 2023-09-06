@@ -43,7 +43,7 @@ public class UtilisateurService implements UtilisateurServiceImpl {
                     u.setNom(utilisateur.getNom());
                     u.setPwd(utilisateur.getPwd());
                     u.setPrenom(utilisateur.getPrenom());
-                    u.setRole(utilisateur.getRole());
+                    //u.setRole(utilisateur.getRole());
                     u.setCompte(utilisateur.getCompte());
                     u.setDatenaiss(utilisateur.getDatenaiss());
                     u.setTelephone(utilisateur.getTelephone());

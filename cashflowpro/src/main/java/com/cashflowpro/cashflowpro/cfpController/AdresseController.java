@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/adresse")
 public class AdresseController {
-    @Autowired
-    private AdresseServiceImpl adresseServiceImp;
+    //@Autowired
+    private final AdresseServiceImpl adresseServiceImp;
 
     @GetMapping("/getAll")
     public List<Adresse> getAdresse(){

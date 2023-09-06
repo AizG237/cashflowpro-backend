@@ -20,11 +20,6 @@ public class Utilisateur {
 
     }
 
-    public enum Role{
-        EMPLOYE,
-        CLIENT,
-        DIRECTEUR
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long matricule;
@@ -36,8 +31,7 @@ public class Utilisateur {
     protected String login;
     @Column(length = 40)
     protected String pwd;
-    @Column
-    private Role role;
+
     @Column
     protected float compte;
     @Column
@@ -49,5 +43,10 @@ public class Utilisateur {
             joinColumns = @JoinColumn(name = "matricule"),
             inverseJoinColumns = @JoinColumn(name = "id_planinvest"))
     private List<PlanInvest> planInvests;
+
+    @ManyToOne
+    @JoinColumn(name = "id_role")
+    private Role role;
+
 
 }
