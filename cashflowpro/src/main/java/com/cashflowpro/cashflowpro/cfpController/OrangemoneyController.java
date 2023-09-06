@@ -3,6 +3,7 @@ package com.cashflowpro.cashflowpro.cfpController;
 import com.cashflowpro.cashflowpro.modele.Orangemoney;
 import com.cashflowpro.cashflowpro.service.OrangemoneyServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/Orangemoney")
+
 public class OrangemoneyController {
     private final OrangemoneyServiceImpl OrangemoneyService;
 

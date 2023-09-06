@@ -2,10 +2,12 @@ package com.cashflowpro.cashflowpro.modele;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "mtn_money")
 @Data
+@Component
 public class Mtnmomo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

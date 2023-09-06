@@ -5,6 +5,7 @@ import com.cashflowpro.cashflowpro.modele.Mtnmomo;
 import com.cashflowpro.cashflowpro.service.MtnMomoServiceImpl;
 /*mport com.cashflowpro.cashflowpro.service.mtnmomoServiceImpl;*/
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/mtnmomo")
+
 public class MtnmomoController {
     private final MtnMomoServiceImpl mtnMomoService;
 

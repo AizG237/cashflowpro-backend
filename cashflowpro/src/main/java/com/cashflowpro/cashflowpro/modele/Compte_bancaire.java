@@ -27,5 +27,6 @@ public class Compte_bancaire {
     private float solde;
     @Column
     private int numero;
-
+    @ManyToOne @JoinColumn(name = "matricule")
+    private Utilisateur utilisateur;
 }

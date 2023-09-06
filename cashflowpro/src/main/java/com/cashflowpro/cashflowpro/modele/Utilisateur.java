@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "utilisateur")
@@ -43,5 +44,10 @@ public class Utilisateur {
     protected Date datenaiss;
     @Column
     protected long telephone;
+    @ManyToMany
+    @JoinTable(name = "planepargne",
+            joinColumns = @JoinColumn(name = "matricule"),
+            inverseJoinColumns = @JoinColumn(name = "id_planinvest"))
+    private List<PlanInvest> planInvests;
 
 }

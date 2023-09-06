@@ -29,4 +29,6 @@ public class Prestation {
     private int montant_total;
     @Column
     private int montant_paye;
+    @ManyToOne @JoinColumn(name = "matricule")
+    private Utilisateur utilisateur;
 }

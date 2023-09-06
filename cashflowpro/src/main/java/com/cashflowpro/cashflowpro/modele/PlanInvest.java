@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "planinvest")
@@ -26,5 +27,14 @@ public class PlanInvest {
     private String nomactif;
     @Column
     private int montantmin;
+    @ManyToOne @JoinColumn(name = "id_borker")
+    private Broker broker;
+    @ManyToOne @JoinColumn(name = "matricule")
+    private Utilisateur utilisateur;
+    @ManyToMany
+ @JoinTable(name = "planepargne",
+         joinColumns = @JoinColumn(name = "id_planinvest"),
+          inverseJoinColumns = @JoinColumn(name = "matricule"))
+ private List<Utilisateur> utilisateurs;
 
 }

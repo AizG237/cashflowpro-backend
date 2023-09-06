@@ -3,12 +3,14 @@ package com.cashflowpro.cashflowpro.cfpController;
 import com.cashflowpro.cashflowpro.modele.Paypal;
 import com.cashflowpro.cashflowpro.service.PaypalServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/paypal")
+
 public class PaypalController {
     private final PaypalServiceImpl PaypalService;
 

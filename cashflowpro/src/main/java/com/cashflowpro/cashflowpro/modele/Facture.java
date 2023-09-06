@@ -32,4 +32,6 @@ public class Facture {
         PAYEE,
         NONPAYEE
     }
+    @ManyToOne @JoinColumn(name = "matricule")
+    private Utilisateur utilisateur;
 }
