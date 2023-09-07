@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateur")
+@CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class UtilisateurController {
 private final UtilisateurServiceImpl utilisateurService;
@@ -32,5 +33,8 @@ private final UtilisateurServiceImpl utilisateurService;
     public Utilisateur getUtilisateur(@PathVariable long matricule){
     return utilisateurService.getUtilisateur(matricule);
 }
-
+@PostMapping("/add")
+    public Utilisateur addUtilisateur(@RequestBody Utilisateur utilisateur){
+    return utilisateurService.addUtilisateur(utilisateur);
+}
 }
