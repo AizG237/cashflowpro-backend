@@ -3,6 +3,7 @@ package com.cashflowpro.cashflowpro.auth;
 import com.cashflowpro.cashflowpro.config.JwtService;
 import com.cashflowpro.cashflowpro.modele.Utilisateur;
 import com.cashflowpro.cashflowpro.repository.UtilisateurRepository;
+import jakarta.persistence.GeneratedValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,14 +25,15 @@ public class AuthenticationService {
                .email(request.getEmail())
                .pwd(passwordEncoder.encode(request.getPassword()))
                .role(Utilisateur.Role.EMPLOYE)
+               .compte(0)
+               .datenaiss(request.getDatenaiss())
+               .telephone(request.getTelephone())
                .build();
        repository.save(user);
        var jwtToken = jwtService.generateToken(user);
        return AuthenticationResponse.builder()
                .token(jwtToken)
                .build();
-
-
     }
     public AuthenticationResponse register(AuthenticationRequest request) {
        authenticationManager.authenticate(

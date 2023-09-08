@@ -39,7 +39,7 @@ public class Utilisateur implements UserDetails {
     protected String prenom;
     @Column(length = 40)
     protected String email;
-    @Column(length = 40)
+    @Column()
     protected String pwd;
 
     @Column
