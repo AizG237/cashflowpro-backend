@@ -29,13 +29,13 @@ public class ClientService implements ClientInterface{
     public Client updateClient(long matricule, Client client) {
         return clientRepository.findById(matricule).map(c->{
             c.setPiece_identite(client.getPiece_identite());
-            c.setNom(client.getNom());
+       /*     c.setNom(client.getNom());
             c.setPrenom(client.getPrenom());
             c.setLogin(client.getLogin());
             c.setPwd(client.getPwd());
             //c.setCompte(client.getCompte());
             c.setDatenaiss(client.getDatenaiss());
-            c.setTelephone(client.getTelephone());
+            c.setTelephone(client.getTelephone());*/
             c.setProfession(client.getProfession());
             c.setPays_origine(client.getPays_origine());
             c.setPays_origine(client.getPays_origine());

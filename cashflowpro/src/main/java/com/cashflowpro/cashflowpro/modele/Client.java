@@ -16,10 +16,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Client extends Utilisateur{
+public class Client /*extends Utilisateur*/{
 
 
-
+@Id
     private long email;
     @Column
     private String pays_origine;
@@ -28,12 +28,12 @@ public class Client extends Utilisateur{
     @Column
     private String piece_identite;
 //@Autowired
-    public Client(long matricule,String email, String nom, String prenom, String login, String pwd, Role role, float compte, Date datenaiss, long telephone, String pays_origine, String profession, String piece_identite) {
+    /*public Client(long matricule,String email, String nom, String prenom, String login, String pwd, Role role, float compte, Date datenaiss, long telephone, String pays_origine, String profession, String piece_identite) {
 
         super();
         this.email=matricule;
         this.pays_origine = pays_origine;
         this.profession = profession;
         this.piece_identite = piece_identite;
-    }
+    }*/
 }

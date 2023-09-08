@@ -1,6 +1,5 @@
+/*
 package com.cashflowpro.cashflowpro.service;
-
-import com.cashflowpro.cashflowpro.modele.Role;
 
 public interface RoleServiceInterface {
     // create
@@ -12,3 +11,4 @@ public interface RoleServiceInterface {
     //delete
     //String deleteRole(long id);
 }
+*/

@@ -1,6 +1,6 @@
+/*
 package com.cashflowpro.cashflowpro.service;
 
-import com.cashflowpro.cashflowpro.modele.Role;
 import com.cashflowpro.cashflowpro.repository.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,3 +28,4 @@ public class RoleService implements RoleServiceInterface{
         }).orElseThrow(()->new RuntimeException("Erreur modification du Role"));
     }
 }
+*/
