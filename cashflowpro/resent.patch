@@ -1,0 +1,1317 @@
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Client.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Client.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Client.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Client.java	(revision Shelved Version)
+@@ -0,0 +1,4 @@
++package com.cashflowpro.cashflowpro.modele;
++
++public class Client extends Utilisateur{
++}
+Index: cashflowpro/pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cashflowpro/pom.xml b/cashflowpro/pom.xml
+--- a/cashflowpro/pom.xml	(revision Local Version)
++++ b/cashflowpro/pom.xml	(revision Shelved Version)
+@@ -52,7 +52,12 @@
+ 			<artifactId>spring-boot-starter-test</artifactId>
+ 			<scope>test</scope>
+ 		</dependency>
+-	</dependencies>
++        <dependency>
++            <groupId>org.springframework.data</groupId>
++            <artifactId>spring-data-jpa</artifactId>
++            <version>2.7.13</version>
++        </dependency>
++    </dependencies>
+ 
+ 	<build>
+ 		<plugins>
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Adresse.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Adresse.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Adresse.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Adresse.java	(revision Shelved Version)
+@@ -0,0 +1,28 @@
++package com.cashflowpro.cashflowpro.modele;
++
++import jakarta.persistence.*;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.Setter;
++
++import java.util.Date;
++@AllArgsConstructor
++@Getter
++@Setter
++@Entity
++@Table(name = "ADRESSES")
++public class Adresse {
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    private long id_adresse;
++    @Column(length = 40)
++    private String pays;
++    @Column(length = 40)
++    private String ville;
++    @Column(length = 40)
++    private String region; // EN CE QUI CONCERNE LE PAYS LE MIEUX ET DE CREER UNE TABLE "PAYS"
++    @Column()
++    private String pobox;
++    @Column
++    private String quartier;
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/AdresseController.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/AdresseController.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/AdresseController.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/AdresseController.java	(revision Shelved Version)
+@@ -0,0 +1,45 @@
++
++package com.cashflowpro.cashflowpro.cfpController;
++
++import com.cashflowpro.cashflowpro.modele.Adresse;
++import com.cashflowpro.cashflowpro.modele.Utilisateur;
++import com.cashflowpro.cashflowpro.service.AdresseService;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.Setter;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.web.bind.annotation.*;
++
++import java.util.List;
++
++@RestController
++@RequestMapping("/adresse")
++@AllArgsConstructor
++
++public class AdresseController {
++    private final AdresseService adresseService;
++    //@Autowired
++
++    @GetMapping("/getAll")
++    public List<Adresse> getAdresse(){
++        //Adresse Adresses = new Adresse("DOnfack","Pavel","Login","123", Adresse.Role.Adresse);
++        return adresseService.getAllAdresse();
++    }
++    @GetMapping("/Adresse/get/{id_adresse}")
++    public Adresse getAdresse(@PathVariable long id_adresse){
++        return adresseService.getAdresse(id_adresse);
++    }
++    @DeleteMapping("/Adresse/delete/{id_adresse}")
++    public void deleteAdresse(@PathVariable long id_adresse){
++        adresseService.deleteAdresse(id_adresse);
++    }
++    @PostMapping("/Adresse/add")
++    public Adresse addAdresse(@RequestBody Adresse Adresse){
++        return  adresseService.addAdresse(Adresse);
++    }
++    @PutMapping("/Adresse/update/{id_adresse}")
++    public String updateAdresse(@PathVariable long id_adresse, @RequestBody Adresse Adresse){
++        adresseService.addAdresse(Adresse);
++        return "LE STRING LA DERANGE";
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/AdresseRepository.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/AdresseRepository.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/AdresseRepository.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/AdresseRepository.java	(revision Shelved Version)
+@@ -0,0 +1,7 @@
++package com.cashflowpro.cashflowpro.repository;
++
++import com.cashflowpro.cashflowpro.modele.Adresse;
++import org.springframework.data.jpa.repository.JpaRepository;
++
++public interface AdresseRepository extends JpaRepository<Adresse , Long> {
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/AdresseService.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/AdresseService.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/AdresseService.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/AdresseService.java	(revision Shelved Version)
+@@ -0,0 +1,46 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Adresse;
++import com.cashflowpro.cashflowpro.repository.AdresseRepository;
++import lombok.AllArgsConstructor;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++@AllArgsConstructor
++@Service
++
++public class AdresseService implements AdresseServiceImpl {
++private final AdresseRepository adresseRepository;
++    @Override
++    public Adresse getAdresse(long id_adresse) {
++        return adresseRepository.findById(id_adresse).orElseThrow(() -> new RuntimeException("Adresse inexistante"));
++    }
++
++    @Override
++    public List<Adresse> getAllAdresse() {
++        return adresseRepository.findAll();
++    }
++
++    @Override
++    public String deleteAdresse(long id_adresse) {
++        adresseRepository.deleteById(id_adresse);
++        return "Adresse supprimée";
++    }
++
++    @Override
++    public Adresse addAdresse(Adresse adresse) {
++        return adresseRepository.save(adresse);
++    }
++
++    @Override
++    public Adresse updateAdresse(long id_adresse, Adresse adresse) {
++        return adresseRepository.findById(id_adresse).map( add ->{
++            add.setPays(adresse.getPays());
++            add.setRegion(adresse.getRegion());
++            add.setVille(adresse.getVille());
++            add.setQuartier(adresse.getQuartier());
++            add.setPobox(adresse.getPobox());
++            return adresseRepository.save(add);
++        }).orElseThrow(() -> new RuntimeException("Erreur de mise à jour de l'adresse"));
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/AdresseServiceImpl.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/AdresseServiceImpl.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/AdresseServiceImpl.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/AdresseServiceImpl.java	(revision Shelved Version)
+@@ -0,0 +1,14 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Adresse;
++
++import java.util.List;
++
++public interface AdresseServiceImpl {
++    Adresse getAdresse(long id_adresse);
++    List<Adresse> getAllAdresse();
++    String deleteAdresse(long id_adresse);
++    Adresse addAdresse(Adresse adresse);
++    Adresse updateAdresse(long matricule, Adresse adresse);
++
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Broker.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Broker.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Broker.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Broker.java	(revision Shelved Version)
+@@ -0,0 +1,34 @@
++package com.cashflowpro.cashflowpro.modele;
++
++import jakarta.persistence.*;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.NoArgsConstructor;
++import lombok.Setter;
++
++import java.util.Date;
++
++@Entity
++@Table(name = "BROKER")
++@AllArgsConstructor
++@NoArgsConstructor
++@Setter
++@Getter
++public class Broker {
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    private long id_broker;
++    @Column(length = 40)
++    private String nom;
++    @Column(length = 40)
++    private String situation;
++    @Column(length = 40)
++    private String autoriteregulation;
++    @Column(length = 40)
++    private String couverturefiscale;
++    @Column
++    private Date datecreation;
++    @Column
++    private Date dateouverturecpt;
++
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/BrokerController.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/BrokerController.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/BrokerController.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/BrokerController.java	(revision Shelved Version)
+@@ -0,0 +1,44 @@
++package com.cashflowpro.cashflowpro.cfpController;
++
++import com.cashflowpro.cashflowpro.modele.Broker;
++import com.cashflowpro.cashflowpro.service.BrokerService;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.Setter;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.web.bind.annotation.*;
++
++import java.util.List;
++
++@RestController
++@RequestMapping("/Broker")
++@AllArgsConstructor
++@Getter
++@Setter
++public class BrokerController {
++    private final BrokerService brokerService;
++   // @Autowired
++    //  private BrokerService cfpservice;
++    @GetMapping("/getAll")
++    public List<Broker> getBroker(){
++        //Broker Brokers = new Broker("DOnfack","Pavel","Login","123", Broker.Role.Broker);
++        return brokerService.getAllBroker();
++    }
++    @GetMapping("/get/{id_broker}")
++    public Broker getBroker(@PathVariable long id_broker){
++        return brokerService.getBroker(id_broker);
++    }
++    @DeleteMapping("/delete/{id_broker}")
++    public void deleteBroker(@PathVariable long id_broker){
++        brokerService.deleteBroker(id_broker);
++    }
++    @PostMapping("/add")
++    public Broker addBroker(@RequestBody Broker Broker){
++        return  brokerService.addBroker(Broker);
++    }
++    @PutMapping("/update/{id_broker}")
++    public String updateBroker(@PathVariable long id_broker, @RequestBody Broker Broker){
++        brokerService.addBroker(Broker);
++        return "LE STRING LA DERANGE";
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/BrokerRepository.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/BrokerRepository.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/BrokerRepository.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/BrokerRepository.java	(revision Shelved Version)
+@@ -0,0 +1,7 @@
++package com.cashflowpro.cashflowpro.repository;
++
++import com.cashflowpro.cashflowpro.modele.Broker;
++import org.springframework.data.jpa.repository.JpaRepository;
++
++public interface BrokerRepository extends JpaRepository<Broker, Long> {
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/BrokerService.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/BrokerService.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/BrokerService.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/BrokerService.java	(revision Shelved Version)
+@@ -0,0 +1,47 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Broker;
++import com.cashflowpro.cashflowpro.repository.BrokerRepository;
++import lombok.AllArgsConstructor;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++@AllArgsConstructor
++@Service
++
++public class BrokerService implements BrokerServiceImpl{
++    private final BrokerRepository brokerRepository;
++    @Override
++    public Broker getBroker(long id_borker) {
++        return brokerRepository.findById(id_borker).orElseThrow(() -> new RuntimeException("Broker non trouvé"));
++    }
++
++    @Override
++    public List<Broker> getAllBroker() {
++        return brokerRepository.findAll();
++    }
++
++    @Override
++    public String deleteBroker(long id_broker) {
++         brokerRepository.deleteById(id_broker);
++        return "Broker supprimé"; // IL Y AURA UN TRAVAIL A FAIRE ICI PAR RAPPORT AUX INVESTISSEMENTS FAITS
++    }
++
++    @Override
++    public Broker addBroker(Broker broker) {
++        return  brokerRepository.save(broker);
++    }
++
++    @Override
++    public Broker updateBroker(long id_broker, Broker broker) {
++        return brokerRepository.findById(id_broker).map(br -> {
++          br.setNom(broker.getNom());
++          br.setSituation(broker.getSituation());
++          br.setAutoriteregulation(broker.getAutoriteregulation());
++          br.setDatecreation(broker.getDatecreation());
++          br.setDateouverturecpt(broker.getDateouverturecpt());
++          br.setCouverturefiscale(broker.getCouverturefiscale());
++          return brokerRepository.save(br);
++        }).orElseThrow(() -> new RuntimeException("Erreur mise à jour broker"));
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/BrokerServiceImpl.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/BrokerServiceImpl.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/BrokerServiceImpl.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/BrokerServiceImpl.java	(revision Shelved Version)
+@@ -0,0 +1,14 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Broker;
++
++import java.util.List;
++
++public interface BrokerServiceImpl {
++    Broker getBroker(long id_borker);
++    List<Broker> getAllBroker();
++    String deleteBroker(long id_broker);
++    Broker addBroker(Broker broker);
++    Broker updateBroker(long id_broker, Broker broker);
++
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/cfpController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/cfpController.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/cfpController.java
+deleted file mode 100644
+--- a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/cfpController.java	(revision Local Version)
++++ /dev/null	(revision Local Version)
+@@ -1,35 +0,0 @@
+-package com.cashflowpro.cashflowpro.cfpController;
+-
+-import com.cashflowpro.cashflowpro.cfpController.service.cfpService;
+-import com.cashflowpro.cashflowpro.modele.Utilisateur;
+-import org.springframework.beans.factory.annotation.Autowired;
+-import org.springframework.web.bind.annotation.*;
+-
+-import java.util.List;
+-
+-@RestController
+-public class cfpController {
+-    @Autowired
+-    private cfpService cfpservice;
+-    @RequestMapping("/employe/getAll")
+-   public List<Utilisateur> getEmploye(){
+-   //Employe employes = new Employe("DOnfack","Pavel","Login","123", Employe.Role.EMPLOYE);
+-    return cfpservice.getEmployes() ;
+-   }
+-   @RequestMapping("/employe/get/{matricule}")
+-    public Utilisateur getEmploye(@PathVariable long matricule){
+-        return cfpService.getEmploye(matricule);
+-    }
+-    @RequestMapping(method = RequestMethod.DELETE, value = "/employe/delete/{matricule}")
+-    public void deleteEmploye(@PathVariable long matricule){
+-        cfpService.deleteEmploye(matricule);
+-    }
+-    @RequestMapping(method = RequestMethod.POST, value = "/employe/add")
+-    public void addEmploye(@RequestBody Utilisateur utilisateur){
+-        cfpService.addEmploye(utilisateur);
+-    }
+-    @RequestMapping(method = RequestMethod.PUT,value = "/employe/update/{matricule}")
+-    public void updateEmploye(@RequestBody Utilisateur utilisateur, @PathVariable long matricule){
+-        cfpService.updateEmploye(utilisateur, matricule);
+-    }
+-}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/service/cfpService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/service/cfpService.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/service/cfpService.java
+deleted file mode 100644
+--- a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/service/cfpService.java	(revision Local Version)
++++ /dev/null	(revision Local Version)
+@@ -1,42 +0,0 @@
+-package com.cashflowpro.cashflowpro.cfpController.service;
+-
+-import com.cashflowpro.cashflowpro.modele.Utilisateur;
+-import org.springframework.stereotype.Service;
+-
+-import java.util.ArrayList;
+-import java.util.Arrays;
+-import java.util.List;
+-
+-@Service
+-public class cfpService {
+-    static  private ArrayList<Utilisateur> utilisateurs = new ArrayList<>(Arrays.asList(
+-            new Utilisateur(1,"Donfack","Pavel","Login","123", Utilisateur.Role.EMPLOYE),
+-            new Utilisateur(2,"Nwal","Frydas","Login","741", Utilisateur.Role.EMPLOYE),
+-            new Utilisateur(3,"Tebah","Martin","Login","789", Utilisateur.Role.EMPLOYE),
+-            new Utilisateur(4,"Esso","juvenal","Login","456", Utilisateur.Role.DIRECTEUR)
+-    ));
+-
+-    public static Utilisateur getEmploye(long matricule) {
+-        return utilisateurs.stream().filter(utilisateur -> utilisateur.getMatricule()==matricule).findFirst().orElseThrow(null);
+-    }
+-
+-    public static void deleteEmploye(long matricule) {
+-        utilisateurs.removeIf(utilisateur -> utilisateur.getMatricule() == matricule);
+-    }
+-
+-    public static void addEmploye(Utilisateur utilisateur) {
+-        utilisateurs.add(utilisateur);
+-    }
+-
+-    public static void updateEmploye(Utilisateur utilisateur, long matricule) {
+-        utilisateurs.forEach(utilisateur1 -> {
+-            if(utilisateur1.getMatricule() == matricule){
+-                utilisateurs.set(utilisateurs.indexOf(utilisateur1), utilisateur);
+-            }
+-        });
+-    }
+-
+-    public List<Utilisateur> getEmployes(){
+-    return utilisateurs;
+-    }
+-}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Client.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Client.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Client.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Client.java	(revision Shelved Version)
+@@ -0,0 +1,4 @@
++package com.cashflowpro.cashflowpro.modele;
++
++public class Client extends Utilisateur{
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Compte_bancaire.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Compte_bancaire.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Compte_bancaire.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Compte_bancaire.java	(revision Shelved Version)
+@@ -0,0 +1,31 @@
++package com.cashflowpro.cashflowpro.modele;
++
++import jakarta.persistence.*;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.NoArgsConstructor;
++import lombok.Setter;
++
++import java.util.Date;
++
++@Entity
++@Table(name = "COMPTEBANCAIRE")
++@AllArgsConstructor
++@Setter
++@Getter
++public class Compte_bancaire {
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    private long id_compte;
++    @Column(length = 40)
++    private String societe;
++    @Column(length = 40)
++    private Date date_creation;
++    @Column(length = 40)
++    private String pays; // EN CE QUI CONCERNE LE PAYS LE MIEUX ET DE CREER UNE TABLE "PAYS"
++    @Column()
++    private float solde;
++    @Column
++    private int numero;
++
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/CptBancaireController.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/CptBancaireController.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/CptBancaireController.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/CptBancaireController.java	(revision Shelved Version)
+@@ -0,0 +1,41 @@
++package com.cashflowpro.cashflowpro.cfpController;
++import com.cashflowpro.cashflowpro.modele.Compte_bancaire;
++import com.cashflowpro.cashflowpro.modele.Utilisateur;
++import com.cashflowpro.cashflowpro.service.CptBancaireService;
++import com.cashflowpro.cashflowpro.service.UtilisateurServiceImpl;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.NoArgsConstructor;
++import lombok.Setter;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.web.bind.annotation.*;
++
++import java.util.List;
++
++@RestController
++@RequestMapping("/cptbancaire")
++@AllArgsConstructor
++@Getter
++@Setter
++
++public class CptBancaireController {
++    private final CptBancaireService cptBancaireService;
++    //@Autowired
++    @GetMapping("/get/{id_compte}")
++    public Compte_bancaire getCompte(@PathVariable long id_compte){
++        return cptBancaireService.getCompte(id_compte);
++    }
++    @DeleteMapping("/delete/{id_compte}")
++    public void deleteCompte(@PathVariable long id_compte){
++        cptBancaireService.deleteCompte(id_compte);
++    }
++    @PostMapping("/add")
++    public Compte_bancaire addCompete(@RequestBody Compte_bancaire compteBancaire){
++        return  cptBancaireService.addCompte(compteBancaire);
++    }
++    @PutMapping("update/{id_compte}")
++    public String updateCompte(@PathVariable long id_compte, @RequestBody Compte_bancaire compteBancaire){
++        cptBancaireService.updateCompte(id_compte, compteBancaire);
++        return "LE STRING LA DERANGE";
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/CptBancaireRepository.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/CptBancaireRepository.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/CptBancaireRepository.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/CptBancaireRepository.java	(revision Shelved Version)
+@@ -0,0 +1,7 @@
++package com.cashflowpro.cashflowpro.repository;
++
++import com.cashflowpro.cashflowpro.modele.Compte_bancaire;
++import org.springframework.data.jpa.repository.JpaRepository;
++
++public interface CptBancaireRepository extends JpaRepository<Compte_bancaire, Long> {
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/CptBancaireService.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/CptBancaireService.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/CptBancaireService.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/CptBancaireService.java	(revision Shelved Version)
+@@ -0,0 +1,41 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Compte_bancaire;
++import com.cashflowpro.cashflowpro.modele.Utilisateur;
++import com.cashflowpro.cashflowpro.repository.CptBancaireRepository;
++import lombok.AllArgsConstructor;
++import org.springframework.stereotype.Service;
++
++@Service
++@AllArgsConstructor
++public class CptBancaireService implements CptBancaireServiceImpl{
++    private final CptBancaireRepository cptBancaireRepository;
++    @Override
++    public Compte_bancaire getCompte(long id_compte) {
++        return cptBancaireRepository.findById(id_compte).orElseThrow(() ->new RuntimeException("Compte pas trouve"));
++    }
++
++    @Override
++    public String deleteCompte(long id_compte) {
++        cptBancaireRepository.deleteById(id_compte);
++        return "Compte supprimé";
++    }
++
++    @Override
++    public Compte_bancaire addCompte(Compte_bancaire compteBancaire) {
++        return cptBancaireRepository.save(compteBancaire);
++    }
++
++    @Override
++    public Compte_bancaire updateCompte(long id_compte, Compte_bancaire compteBancaire) {
++        return cptBancaireRepository.findById(id_compte).map(cpt ->{
++            cpt.setDate_creation(compteBancaire.getDate_creation());
++            cpt.setPays(compteBancaire.getPays());
++            cpt.setSolde(compteBancaire.getSolde());
++            cpt.setSociete(compteBancaire.getSociete());
++            cpt.setNumero(compteBancaire.getNumero());
++            return cptBancaireRepository.save(cpt);
++                }
++        ).orElseThrow(() -> new RuntimeException(" Erreur mise à jour du compte") );
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/CptBancaireServiceImpl.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/CptBancaireServiceImpl.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/CptBancaireServiceImpl.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/CptBancaireServiceImpl.java	(revision Shelved Version)
+@@ -0,0 +1,16 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Compte_bancaire;
++import com.cashflowpro.cashflowpro.modele.Utilisateur;
++
++import java.util.List;
++
++public interface CptBancaireServiceImpl {
++    Compte_bancaire getCompte(long id_compte);
++
++    //List<Compte_bancaire> getAllUtilisateur();
++
++    String deleteCompte(long id_compte);
++    Compte_bancaire addCompte(Compte_bancaire compteBancaire);
++    Compte_bancaire updateCompte(long id_compte, Compte_bancaire compteBancaire); // Pourquoi ça doit être "Long" au lieu de "long"??,
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Facture.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Facture.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Facture.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Facture.java	(revision Shelved Version)
+@@ -0,0 +1,35 @@
++package com.cashflowpro.cashflowpro.modele;
++
++import jakarta.persistence.*;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.NoArgsConstructor;
++import lombok.Setter;
++
++import java.util.Date;
++
++@AllArgsConstructor
++@NoArgsConstructor
++@Setter
++@Getter
++@Entity
++@Table(name= "FACTURE")
++public class Facture {
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    private long id_facture;
++    @Column
++    private String nomsociete;
++    @Column
++    private int montant;
++    @Column
++    private Date date_reception;
++    @Column
++    private int delai;
++    @Column
++    private Etat etat;
++    public enum Etat {
++        PAYEE,
++        NONPAYEE
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/FactureController.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/FactureController.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/FactureController.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/FactureController.java	(revision Shelved Version)
+@@ -0,0 +1,43 @@
++package com.cashflowpro.cashflowpro.cfpController;
++
++import com.cashflowpro.cashflowpro.modele.Facture;
++import com.cashflowpro.cashflowpro.service.FactureService;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.Setter;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.web.bind.annotation.*;
++
++import java.util.List;
++@RestController
++@RequestMapping("/facture")
++@AllArgsConstructor
++@Getter
++@Setter
++public class FactureController {
++private final FactureService factureService;;
++  //  @Autowired
++
++    @GetMapping("/getAll")
++    public List<Facture> getFacture(){
++        //Facture Factures = new Facture("DOnfack","Pavel","Login","123", Facture.Role.Facture);
++        return factureService.getAllFacture();
++    }
++    @GetMapping("/Facture/get/{id_Facture}")
++    public Facture getFacture(@PathVariable long id_facture){
++        return factureService.getFacture(id_facture);
++    }
++    @DeleteMapping("/Facture/delete/{id_Facture}")
++    public void deleteFacture(@PathVariable long id_facture){
++        factureService.deleteFacture(id_facture);
++    }
++    @PostMapping("/Facture/add")
++    public Facture addFacture(@RequestBody Facture facture){
++        return  factureService.addFacture(facture);
++    }
++    @PutMapping("/Facture/update/{id_Facture}")
++    public String updateFacture(@PathVariable long id_Facture, @RequestBody Facture facture){
++        factureService.addFacture(facture);
++        return "LE STRING LA DERANGE";
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/FactureRepository.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/FactureRepository.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/FactureRepository.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/FactureRepository.java	(revision Shelved Version)
+@@ -0,0 +1,7 @@
++package com.cashflowpro.cashflowpro.repository;
++
++import com.cashflowpro.cashflowpro.modele.Facture;
++import org.springframework.data.jpa.repository.JpaRepository;
++
++public interface FactureRepository extends JpaRepository<Facture, Long> {
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/FactureService.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/FactureService.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/FactureService.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/FactureService.java	(revision Shelved Version)
+@@ -0,0 +1,46 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Facture;
++import com.cashflowpro.cashflowpro.repository.FactureRepository;
++import lombok.AllArgsConstructor;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++@Service
++
++@AllArgsConstructor
++public class FactureService implements FactureServiceImpl{
++    private final FactureRepository factureRepository;
++    @Override
++    public Facture getFacture(long id_facture) {
++        return factureRepository.findById(id_facture).orElseThrow(() -> new RuntimeException("Facture non trouvee !!"));
++    }
++
++    @Override
++    public List<Facture> getAllFacture() {
++        return factureRepository.findAll();
++    }
++
++    @Override
++    public String deleteFacture(long id_facture) {
++         factureRepository.deleteById(id_facture);
++         return "Facture supprimée !!!";
++    }
++
++    @Override
++    public Facture addFacture(Facture facture) {
++        return factureRepository.save(facture);
++    }
++
++    @Override
++    public Facture updateFacture(Long id_facture, Facture facture) {
++        return factureRepository.findById(id_facture).map(fact->{
++            fact.setEtat(facture.getEtat());
++            fact.setMontant(facture.getMontant());
++            fact.setDelai(facture.getDelai());
++            fact.setNomsociete(facture.getNomsociete());
++            fact.setDate_reception(facture.getDate_reception());
++            return factureRepository.save(fact);
++        }).orElseThrow(() -> new RuntimeException("Erreur de mise à jour des informations de la facture !!!"));
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/FactureServiceImpl.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/FactureServiceImpl.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/FactureServiceImpl.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/FactureServiceImpl.java	(revision Shelved Version)
+@@ -0,0 +1,14 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Facture;
++
++import java.util.List;
++
++public interface FactureServiceImpl {
++    Facture getFacture(long id_facture);
++    List<Facture> getAllFacture();
++    String deleteFacture(long id_facture);
++    Facture addFacture(Facture facture);
++    Facture updateFacture(Long id_facture, Facture facture);
++
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Prestation.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Prestation.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Prestation.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Prestation.java	(revision Shelved Version)
+@@ -0,0 +1,32 @@
++package com.cashflowpro.cashflowpro.modele;
++
++import jakarta.persistence.*;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.NoArgsConstructor;
++import lombok.Setter;
++import org.hibernate.annotations.CollectionId;
++@AllArgsConstructor
++@NoArgsConstructor
++@Getter
++@Setter
++@Entity
++@Table(name="PRESTATION")
++public class Prestation {
++
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    private long  id_prestation;
++    @Column()
++    private String libelle;
++    @Column
++    private String Domaine;
++    @Column
++    private int duree;
++    @Column
++    private String nom_projet;
++    @Column
++    private int montant_total;
++    @Column
++    private int montant_paye;
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/PrestationController.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/PrestationController.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/PrestationController.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/PrestationController.java	(revision Shelved Version)
+@@ -0,0 +1,49 @@
++package com.cashflowpro.cashflowpro.cfpController;
++
++import com.cashflowpro.cashflowpro.modele.Prestation;
++import com.cashflowpro.cashflowpro.service.PrestationService;
++import com.cashflowpro.cashflowpro.service.PrestationService;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.Setter;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.web.bind.annotation.*;
++
++import java.util.List;
++
++@RestController
++@RequestMapping("/prestation")
++@AllArgsConstructor
++@Getter
++@Setter
++public class PrestationController {
++    private final PrestationService prestationService;
++   // @Autowired
++    // create
++    @PostMapping("/add")
++    public void ajouterPrestation(@RequestBody Prestation prestation){
++        prestationService.addPrestation(prestation);
++    }
++
++    //read
++    @GetMapping("/get/{id}")
++    public Prestation trouverPrestation(@PathVariable long id){
++        return prestationService.getPrestation(id);
++    }
++
++    //readAll
++    @GetMapping("get/all")
++    public List<Prestation> trouverAllPrestation(){
++        return prestationService.getAllPrestation();
++    }
++    //update
++    @PutMapping("/update/{id}")
++    public Prestation updatePrestation(@PathVariable long id, @RequestBody Prestation prestation){
++        return prestationService.updatePrestation(id,prestation);
++    }
++    //delete
++    @DeleteMapping("/delete/{id}")
++    public String supprimerPrestation(@PathVariable long id){
++       return prestationService.deletePrestation(id);
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/PrestationService.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/PrestationService.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/PrestationService.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/PrestationService.java	(revision Shelved Version)
+@@ -0,0 +1,47 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Prestation;
++import com.cashflowpro.cashflowpro.repository.PrestationRepository;
++import lombok.AllArgsConstructor;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++@AllArgsConstructor
++@Service
++public class PrestationService implements PrestationServiceImpl {
++private final PrestationRepository prestationRepository;
++    @Override
++    public Prestation addPrestation(Prestation prestation) {
++        return prestationRepository.save(prestation);
++    }
++
++    @Override
++    public Prestation getPrestation(long id) {
++        return prestationRepository.findById(id).orElseThrow(() -> new RuntimeException("Prestation jamais initiée et inexistante"));
++    }
++
++    @Override
++    public List<Prestation> getAllPrestation() {
++        return prestationRepository.findAll();
++    }
++
++    @Override
++    public Prestation updatePrestation(Long id, Prestation prestation) {
++        return prestationRepository.findById(id)
++                .map(p ->{
++                    p.setDomaine(prestation.getDomaine());
++                    p.setLibelle(prestation.getLibelle());
++                    p.setDuree(prestation.getDuree());
++                    p.setMontant_paye(prestation.getMontant_paye());
++                    p.setMontant_total(prestation.getMontant_total());
++                    p.setNom_projet(prestation.getNom_projet());
++                    return prestationRepository.save(p);
++                }).orElseThrow(() -> new RuntimeException("Erreur de mise à jour de la prestation"));
++    }
++
++    @Override
++    public String deletePrestation(long id) {
++        prestationRepository.deleteById(id);
++        return "Prestation supprimée";
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/PrestationServiceImpl.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/PrestationServiceImpl.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/PrestationServiceImpl.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/PrestationServiceImpl.java	(revision Shelved Version)
+@@ -0,0 +1,18 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Prestation;
++
++import java.util.List;
++
++public interface PrestationServiceImpl {
++    //Create
++    Prestation addPrestation(Prestation prestation);
++    //Read
++    Prestation getPrestation(long id);
++    //ReadAll
++    List<Prestation> getAllPrestation();
++    //Update
++    Prestation updatePrestation(Long id,Prestation prestation);
++    //Delete
++    String deletePrestation(long id);
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Transaction.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Transaction.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Transaction.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/modele/Transaction.java	(revision Shelved Version)
+@@ -0,0 +1,25 @@
++package com.cashflowpro.cashflowpro.modele;
++
++import jakarta.persistence.*;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.NoArgsConstructor;
++import lombok.Setter;
++
++import java.util.Date;
++
++@AllArgsConstructor
++@NoArgsConstructor
++@Getter
++@Setter
++@Entity
++@Table(name="TRANSACTION")
++public class Transaction {
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    private long  id_transact;
++    @Column()
++    private Date date_init;
++    @Column
++    private Date date_effect;
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/TransactionRepository.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/TransactionRepository.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/TransactionRepository.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/TransactionRepository.java	(revision Shelved Version)
+@@ -0,0 +1,7 @@
++package com.cashflowpro.cashflowpro.repository;
++
++import com.cashflowpro.cashflowpro.modele.Transaction;
++import org.springframework.data.jpa.repository.JpaRepository;
++
++public interface TransactionRepository extends JpaRepository<Transaction, Long> {
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/TransactionService.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/TransactionService.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/TransactionService.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/TransactionService.java	(revision Shelved Version)
+@@ -0,0 +1,43 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Transaction;
++import com.cashflowpro.cashflowpro.repository.TransactionRepository;
++import lombok.AllArgsConstructor;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++@AllArgsConstructor
++@Service
++
++public class TransactionService implements TransactionServiceImpl{
++    private final TransactionRepository transactionRepository;
++    @Override
++    public Transaction getTransact(long id_transact) {
++        return transactionRepository.findById(id_transact).orElseThrow(() -> new RuntimeException("Transaction jamais effectuée !!"));
++    }
++
++    @Override
++    public List<Transaction> getAllTransaction() {
++        return transactionRepository.findAll();
++    }
++/*
++    @Override
++    public String deleteTransact(long id_transact) {
++        transactionRepository.deleteById(id_transact);
++        return "Transaction supprimée !!"
++    }*/
++
++    @Override
++    public Transaction addTransact(Transaction transaction) {
++        return transactionRepository.save(transaction);
++    }
++/*
++    @Override
++    public Transaction updateTransact(Long id_compte, Transaction transaction) {
++        return transactionRepository.findById(id_compte).map(tr->{
++            tr.setDate_effect(transaction.getDate_effect());
++            tr.setDate_effect(transaction.getDate_effect());
++            return transactionRepository.save(tr);
++        }).orElseThrow(() -> new RuntimeException("transaction non mise à jour. Erreur !!!"));
++    }*/
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/TransactionServiceImpl.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/TransactionServiceImpl.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/TransactionServiceImpl.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/TransactionServiceImpl.java	(revision Shelved Version)
+@@ -0,0 +1,16 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Transaction;
++
++import java.util.List;
++
++public interface TransactionServiceImpl {
++    Transaction getTransact(long id_transact);
++
++    List<Transaction> getAllTransaction();
++
++   // String deleteTransact(long id_transact);
++    Transaction addTransact(Transaction transaction);
++  //  Transaction updateTransact(Long id_compte, Transaction transaction); // Pourquoi ça doit être "Long" au lieu de "long"??,
++
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/UtilisateurController.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/UtilisateurController.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/UtilisateurController.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/cfpController/UtilisateurController.java	(revision Shelved Version)
+@@ -0,0 +1,45 @@
++package com.cashflowpro.cashflowpro.cfpController;
++
++import com.cashflowpro.cashflowpro.service.UtilisateurServiceImpl;
++import com.cashflowpro.cashflowpro.service.UtilisateurService;
++import com.cashflowpro.cashflowpro.modele.Utilisateur;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import lombok.Setter;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.web.bind.annotation.*;
++
++import java.util.List;
++
++@RestController
++@RequestMapping("/utilisateur")
++@AllArgsConstructor
++@Getter
++@Setter
++public class UtilisateurController {
++    private final UtilisateurServiceImpl utilisateurServiceImpl;
++   // @Autowired
++  //  private UtilisateurService cfpservice;
++    @GetMapping("/Utilisateur/getAll")
++   public List<Utilisateur> getUtilisateur(){
++   //Utilisateur Utilisateurs = new Utilisateur("DOnfack","Pavel","Login","123", Utilisateur.Role.Utilisateur);
++    return utilisateurServiceImpl.getAllUtilisateur();
++   }
++   @GetMapping("/Utilisateur/get/{matricule}")
++    public Utilisateur getUtilisateur(@PathVariable long matricule){
++        return utilisateurServiceImpl.getUtilisateur(matricule);
++    }
++    @DeleteMapping("/Utilisateur/delete/{matricule}")
++    public void deleteUtilisateur(@PathVariable long matricule){
++        utilisateurServiceImpl.deleteUtilisateur(matricule);
++    }
++    @PostMapping("/Utilisateur/add")
++    public Utilisateur addUtilisateur(@RequestBody Utilisateur utilisateur){
++        return  utilisateurServiceImpl.addUtilisateur(utilisateur);
++    }
++    @PutMapping("/Utilisateur/update/{matricule}")
++    public String updateUtilisateur(@PathVariable long matricule, @RequestBody Utilisateur utilisateur){
++              utilisateurServiceImpl.addUtilisateur(utilisateur);
++              return "LE STRING LA DERANGE";
++    }
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/UtilisateurRepository.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/UtilisateurRepository.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/UtilisateurRepository.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/repository/UtilisateurRepository.java	(revision Shelved Version)
+@@ -0,0 +1,7 @@
++package com.cashflowpro.cashflowpro.repository;
++
++import com.cashflowpro.cashflowpro.modele.Utilisateur;
++import org.springframework.data.jpa.repository.JpaRepository;
++
++public interface UtilisateurRepository extends JpaRepository <Utilisateur, Long> {
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/UtilisateurService.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/UtilisateurService.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/UtilisateurService.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/UtilisateurService.java	(revision Shelved Version)
+@@ -0,0 +1,82 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Utilisateur;
++import com.cashflowpro.cashflowpro.repository.UtilisateurRepository;
++import lombok.AllArgsConstructor;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++
++@Service
++@AllArgsConstructor
++public class UtilisateurService implements UtilisateurServiceImpl {
++    private final UtilisateurRepository utilisateurRepository;
++    @Override
++    public Utilisateur getUtilisateur(long matricule) {
++        //JE SOUHAITE RETOURNE UN UTILISATEUR GRACE AU MATRICULE
++        return utilisateurRepository.findById(matricule).orElseThrow(() -> new RuntimeException("UTILISATEUR NON EXISTANT DANS NOTRE SYSTEME"));
++    }
++
++    @Override
++    public List<Utilisateur> getAllUtilisateur() {
++        return utilisateurRepository.findAll();
++    }
++
++    @Override
++    public String deleteUtilisateur(long matricule) {
++        utilisateurRepository.deleteById(matricule);
++        return "Supprimé;";
++
++    }
++
++    @Override
++    public Utilisateur addUtilisateur(Utilisateur utilisateur) {
++        return utilisateurRepository.save(utilisateur);
++    }
++
++    @Override
++    public Utilisateur updateUtilisateur(Long matricule, Utilisateur utilisateur) {
++        return utilisateurRepository.findById(matricule)
++                .map(u-> {
++                    u.setLogin(utilisateur.getLogin());
++                    u.setNom(utilisateur.getNom());
++                    u.setPwd(utilisateur.getPwd());
++                    u.setPrenom(utilisateur.getPrenom());
++                    u.setRole(utilisateur.getRole());
++                    u.setCompte(utilisateur.getCompte());
++                    u.setDateNaiss(utilisateur.getDateNaiss());
++                    u.setTelephone(utilisateur.getTelephone());
++                    return utilisateurRepository.save(u);
++                }).orElseThrow(() -> new RuntimeException("Utilisateur inexistant dans le système"));
++    }
++   /* static  private ArrayList<Utilisateur> utilisateurs = new ArrayList<>(Arrays.asList(
++            new Utilisateur(1,"Donfack","Pavel","Login","123", Utilisateur.Role.EMPLOYE),
++            new Utilisateur(2,"Nwal","Frydas","Login","741", Utilisateur.Role.EMPLOYE),
++            new Utilisateur(3,"Tebah","Martin","Login","789", Utilisateur.Role.EMPLOYE),
++            new Utilisateur(4,"Esso","juvenal","Login","456", Utilisateur.Role.DIRECTEUR)
++    ));
++
++    public static Utilisateur getUtilisateur(long matricule) {
++        return utilisateurs.stream().filter(utilisateur -> utilisateur.getMatricule()==matricule).findFirst().orElseThrow(null);
++    }
++
++    public static void deleteUtilisateur(long matricule) {
++        utilisateurs.removeIf(utilisateur -> utilisateur.getMatricule() == matricule);
++    }
++
++    public static void addUtilisateur(Utilisateur utilisateur) {
++        utilisateurs.add(utilisateur);
++    }
++
++    public static void updateUtilisateur(Utilisateur utilisateur, long matricule) {
++        utilisateurs.forEach(utilisateur1 -> {
++            if(utilisateur1.getMatricule() == matricule){
++                utilisateurs.set(utilisateurs.indexOf(utilisateur1), utilisateur);
++            }
++        });
++    }
++
++    public List<Utilisateur> getUtilisateurs(){
++    return utilisateurs;
++    }*/
++}
+Index: cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/UtilisateurServiceImpl.java
+===================================================================
+diff --git a/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/UtilisateurServiceImpl.java b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/UtilisateurServiceImpl.java
+new file mode 100644
+--- /dev/null	(revision Shelved Version)
++++ b/cashflowpro/src/main/java/com/cashflowpro/cashflowpro/service/UtilisateurServiceImpl.java	(revision Shelved Version)
+@@ -0,0 +1,14 @@
++package com.cashflowpro.cashflowpro.service;
++
++import com.cashflowpro.cashflowpro.modele.Utilisateur;
++
++import java.util.List;
++
++public interface UtilisateurServiceImpl {
++    Utilisateur getUtilisateur(long matricule);
++    List<Utilisateur> getAllUtilisateur();
++    String deleteUtilisateur(long matricule);
++    Utilisateur addUtilisateur(Utilisateur utilisateur);
++    Utilisateur updateUtilisateur(Long matricule, Utilisateur utilisateur);
++
++}

@@ -22,4 +22,8 @@ public class Transaction {
     private Date date_init;
     @Column
     private Date date_effect;
+    @Column
+    private String motif;
+    @Column
+    private boolean type_cashflow;
 }

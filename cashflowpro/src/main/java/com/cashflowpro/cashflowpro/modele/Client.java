@@ -16,11 +16,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Client /*extends Utilisateur*/{
+public class Client extends Utilisateur{
 
 
-@Id
-    private long email;
+    @Id
+    private String email;
     @Column
     private String pays_origine;
     @Column

@@ -28,9 +28,15 @@ public class Facture {
     private int delai;
     @Column
     private Etat etat;
+    @Column
+    private Type type;
     public enum Etat {
         PAYEE,
         NONPAYEE
+    }
+    public enum Type{
+        AUTOMATIQUE,
+        MANUELLE
     }
     @ManyToOne @JoinColumn(name = "matricule")
     private Utilisateur utilisateur;

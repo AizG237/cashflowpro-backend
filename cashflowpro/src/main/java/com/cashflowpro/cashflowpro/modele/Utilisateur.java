@@ -24,11 +24,6 @@ public class Utilisateur implements UserDetails {
     public Utilisateur(){
 
     }
-    public enum Role{
-        DIRECTEUR,
-        EMPLOYE,
-        CLIENT
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,12 +33,10 @@ public class Utilisateur implements UserDetails {
     @Column(length = 40)
     protected String prenom;
     @Column(length = 40)
-    protected String email;
+    private String email;
     @Column()
     protected String pwd;
 
-    @Column
-    protected float compte;
     @Column
     protected Date datenaiss;
     @Column
@@ -54,6 +47,10 @@ public class Utilisateur implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "id_planinvest"))
     private List<PlanInvest> planInvests;
     private Role role;
+
+  /*  @OneToMany
+    @JoinColumn(name = "id_role")
+    private List<Role> role;*/
 
 
     @Override

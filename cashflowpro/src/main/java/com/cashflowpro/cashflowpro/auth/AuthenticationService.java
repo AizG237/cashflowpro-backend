@@ -24,8 +24,8 @@ public class AuthenticationService {
                .prenom(request.getLastname())
                .email(request.getEmail())
                .pwd(passwordEncoder.encode(request.getPassword()))
-               .role(Utilisateur.Role.EMPLOYE)
-               .compte(0)
+               //.role(request)
+               //.compte(0)
                .datenaiss(request.getDatenaiss())
                .telephone(request.getTelephone())
                .build();
