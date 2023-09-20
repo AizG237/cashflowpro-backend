@@ -13,6 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Setter
 @Getter
+@NoArgsConstructor
 public class Compte_bancaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

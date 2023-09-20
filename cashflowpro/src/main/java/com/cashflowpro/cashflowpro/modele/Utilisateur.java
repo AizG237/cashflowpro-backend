@@ -46,8 +46,14 @@ public class Utilisateur implements UserDetails {
             joinColumns = @JoinColumn(name = "matricule"),
             inverseJoinColumns = @JoinColumn(name = "id_planinvest"))
     private List<PlanInvest> planInvests;
-    private Role role;
+    private Role role = Role.UTILISATEUR;
 
+    public enum Role {
+        DIRECTEUR,
+        EMPLOYE,
+        CLIENT,
+        UTILISATEUR
+    }
   /*  @OneToMany
     @JoinColumn(name = "id_role")
     private List<Role> role;*/

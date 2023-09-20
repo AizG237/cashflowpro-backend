@@ -40,15 +40,13 @@ public class AdresseDto {
         if (adresseDto == null) {
             new RuntimeException("Erreur, reference adresse nulle");
             return null;
-        } else {
-            return Adresse.builder()
-                    .ville(adresseDto.getVille())
-                    .region(adresseDto.getRegion())
-                    .pobox(adresseDto.getPobox())
-                    .quartier(adresseDto.getQuartier())
-                    .build();
         }
-
+        return Adresse.builder()
+                .quartier(adresseDto.getQuartier())
+                .pobox(adresseDto.getPobox())
+                .region(adresseDto.getRegion())
+                .ville(adresseDto.getVille())
+                .pays(adresseDto.getPays()).build();
 
     }
 }
