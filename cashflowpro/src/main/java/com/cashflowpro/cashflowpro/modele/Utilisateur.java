@@ -16,15 +16,11 @@ import java.util.List;
 @Entity
 @Table(name = "utilisateur")
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Builder
 
 public class Utilisateur implements UserDetails {
-
-    public Utilisateur(){
-
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long matricule;
@@ -46,14 +42,10 @@ public class Utilisateur implements UserDetails {
             joinColumns = @JoinColumn(name = "matricule"),
             inverseJoinColumns = @JoinColumn(name = "id_planinvest"))
     private List<PlanInvest> planInvests;
-    private Role role = Role.UTILISATEUR;
 
-    public enum Role {
-        DIRECTEUR,
-        EMPLOYE,
-        CLIENT,
-        UTILISATEUR
-    }
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "idrole",referencedColumnName = "id")
+    private Role role;
   /*  @OneToMany
     @JoinColumn(name = "id_role")
     private List<Role> role;*/
@@ -61,7 +53,7 @@ public class Utilisateur implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority(role.getNom_role()));
     }
 
     @Override

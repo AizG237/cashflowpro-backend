@@ -19,6 +19,7 @@ public class RegisterRequest {
     private String password;
     private Date datenaiss;
     private long telephone;
+    private String role;
 
 
 }
