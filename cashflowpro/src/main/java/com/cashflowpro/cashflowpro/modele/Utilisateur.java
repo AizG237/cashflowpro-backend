@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,9 @@ import java.util.List;
 public class Utilisateur implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long matricule;
+    private long id_utilisateur;
+    @Column
+    private String matricule;
     @Column(length = 40)
     protected String nom;
     @Column(length = 40)
@@ -32,6 +35,8 @@ public class Utilisateur implements UserDetails {
     private String email;
     @Column()
     protected String pwd;
+    @Column
+    private float salaire;
 
     @Column
     protected Date datenaiss;
@@ -43,7 +48,7 @@ public class Utilisateur implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "id_planinvest"))
     private List<PlanInvest> planInvests;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "idrole",referencedColumnName = "id")
     private Role role;
   /*  @OneToMany
@@ -53,7 +58,8 @@ public class Utilisateur implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getNom_role()));
+        //return List.of(new SimpleGrantedAuthority(role.getNom_role()));
+        return Collections.singleton(new SimpleGrantedAuthority(role.getNom_role()));
     }
 
     @Override

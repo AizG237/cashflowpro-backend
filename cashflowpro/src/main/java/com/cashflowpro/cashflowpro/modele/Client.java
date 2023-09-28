@@ -29,13 +29,5 @@ public class Client extends Utilisateur{
     private String profession;
     @Column
     private String piece_identite;
-//@Autowired
-    /*public Client(long matricule,String email, String nom, String prenom, String login, String pwd, Role role, float compte, Date datenaiss, long telephone, String pays_origine, String profession, String piece_identite) {
 
-        super();
-        this.email=matricule;
-        this.pays_origine = pays_origine;
-        this.profession = profession;
-        this.piece_identite = piece_identite;
-    }*/
 }

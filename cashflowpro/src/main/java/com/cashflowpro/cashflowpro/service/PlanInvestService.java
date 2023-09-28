@@ -34,6 +34,7 @@ public class PlanInvestService implements PlanInvestServiceImpl{
             pi.setMontantmin(planInvest.getMontantmin());
             pi.setDureemin(planInvest.getDureemin());
             pi.setNomactif(planInvest.getNomactif());
+            pi.setRendementmoyen(planInvest.getRendementmoyen());
             return planInvestRepository.save(pi);
         }).orElseThrow(()-> new RuntimeException("Erreur mise à jour du plan d'investissement"));
     }

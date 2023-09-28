@@ -27,6 +27,8 @@ public class PlanInvest {
     private String nomactif;
     @Column
     private int montantmin;
+ @Column
+ private float rendementmoyen;
     @ManyToOne @JoinColumn(name = "id_borker")
     private Broker broker;
     @ManyToOne @JoinColumn(name = "matricule")

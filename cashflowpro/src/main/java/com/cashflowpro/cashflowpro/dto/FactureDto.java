@@ -19,6 +19,7 @@ public class FactureDto {
     private int montant;
     private Date date_reception;
     private int delai;
+    private Date datepaiement;
     private Etat etat;
     private Facture.Type type;
     public enum Etat {
@@ -33,9 +34,10 @@ public class FactureDto {
         facture.setId_facture(factureDto.getId_facture());
         //facture.setEtat(FactureDto.);
         facture.setType(factureDto.getType());
-        facture.setDelai(factureDto.getDelai());
+       // facture.setDelai(factureDto.getDelai());
         facture.setNomsociete(factureDto.getNomsociete());
         facture.setDate_reception(factureDto.getDate_reception());
+        facture.setDate_paiement(factureDto.getDate_reception());
         //facture.setUtilisateur(factureDto.);
         facture.setMontant(factureDto.getMontant());
         return facture;
@@ -50,9 +52,10 @@ public class FactureDto {
         factureDto.setId_facture(facture.getId_facture());
         //facture.setEtat(FactureDto.);
         factureDto.setType(facture.getType());
-        factureDto.setDelai(facture.getDelai());
+       // factureDto.setDelai(facture.getDelai());
         factureDto.setNomsociete(facture.getNomsociete());
         factureDto.setDate_reception(facture.getDate_reception());
+        factureDto.setDatepaiement(facture.getDate_paiement());
         //facture.setUtilisateur(factureDto.);
         factureDto.setMontant(facture.getMontant());
         return factureDto;

@@ -23,19 +23,21 @@ private final FactureService factureService;;
         //Facture Factures = new Facture("DOnfack","Pavel","Login","123", Facture.Role.Facture);
         return factureService.getAllFacture();
     }
-    @GetMapping("/Facture/get/{id_Facture}")
+    @GetMapping("/get/{id_Facture}")
     public Facture getFacture(@PathVariable long id_facture){
         return factureService.getFacture(id_facture);
     }
-    @DeleteMapping("/Facture/delete/{id_Facture}")
+    @DeleteMapping("/delete/{id_Facture}")
     public void deleteFacture(@PathVariable long id_facture){
         factureService.deleteFacture(id_facture);
     }
-    @PostMapping("/Facture/add")
+    @PostMapping("/add/manuel")
     public Facture addFacture(@RequestBody Facture facture){
+        facture.setType(Facture.Type.MANUELLE);
+       facture.setEtat(Facture.Etat.NONPAYEE);
         return  factureService.addFacture(facture);
     }
-    @PutMapping("/Facture/update/{id_Facture}")
+    @PutMapping("/update/{id_Facture}")
     public String updateFacture(@PathVariable long id_Facture, @RequestBody Facture facture){
         factureService.addFacture(facture);
         return "LE STRING LA DERANGE";

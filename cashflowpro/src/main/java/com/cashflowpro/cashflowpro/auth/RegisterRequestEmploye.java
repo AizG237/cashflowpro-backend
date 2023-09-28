@@ -1,6 +1,5 @@
 package com.cashflowpro.cashflowpro.auth;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,18 +11,15 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class RegisterRequestEmploye {
 
     private String firstname;
     private String lastname;
     private String email;
-    private String password;
+    private String password = "azerty";
     private Date datenaiss;
     private long telephone;
-    private String role = "CLIENT";
-    private String pays_origine;
-    private String profession;
-    private String piece_identite;
-
-
+    private String role = "EMPLOYE";
+    private String matricule;
+    private float salaire;
 }

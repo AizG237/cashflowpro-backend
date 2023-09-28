@@ -5,10 +5,10 @@ import com.cashflowpro.cashflowpro.modele.Utilisateur;
 import java.util.List;
 
 public interface UtilisateurServiceImpl {
-    Utilisateur getUtilisateur(long matricule);
+    Utilisateur getUtilisateur(String matricule);
     List<Utilisateur> getAllUtilisateur();
     String deleteUtilisateur(long matricule);
     Utilisateur addUtilisateur(Utilisateur utilisateur);
-    Utilisateur updateUtilisateur(long matricule, Utilisateur utilisateur);
+    Utilisateur updateUtilisateur(String matricule, Utilisateur utilisateur);
 
 }

@@ -21,7 +21,9 @@ public class Facture {
     @Column
     private Date date_reception;
     @Column
-    private int delai;
+    private Date date_paiement;
+    @Column
+    private Date delai;
     @Column
     private Etat etat;
     @Column

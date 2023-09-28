@@ -20,6 +20,7 @@ public class PlanInvestDto {
     private Date dateinit;
     private String nomactif;
     private int montantmin;
+    private float rendementmoyen;
     private Broker broker;
     private UtilisateurDto utilisateurDto;
 
@@ -34,7 +35,8 @@ public class PlanInvestDto {
         planInvestDto.setDateinit(planInvest.getDateinit());
         planInvestDto.setDureemin(planInvest.getDureemin());
         planInvestDto.setBroker(planInvest.getBroker());
-       // planInvestDto.setUtilisateurDto(planInvest.getUtilisateur());
+        planInvestDto.setRendementmoyen(planInvest.getRendementmoyen());
+       // planInvestDto.setUtilisateurDto.
         return planInvestDto;
     }
 
@@ -49,6 +51,7 @@ public class PlanInvestDto {
         planInvest.setDateinit(planInvestDto.getDateinit());
         planInvest.setDureemin(planInvestDto.getDureemin());
         planInvest.setBroker(planInvestDto.getBroker());
+        planInvest.setRendementmoyen(planInvestDto.getRendementmoyen());
         // planInvestDto.setUtilisateurDto(planInvest.getUtilisateur());
         return planInvest;
     }

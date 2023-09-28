@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UtilisateurDto {
-    private long matricule;
+    private String matricule;
     protected String nom;
     protected String prenom;
     protected String email;

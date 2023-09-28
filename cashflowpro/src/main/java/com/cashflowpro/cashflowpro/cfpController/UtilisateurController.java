@@ -22,7 +22,7 @@ private final UtilisateurServiceImpl utilisateurService;
     return utilisateurService.getAllUtilisateur();
 }
 @PutMapping("/update/{id}")
-    public Utilisateur updateUtilisateur(@PathVariable long matricule, @RequestBody Utilisateur utilisateur){
+    public Utilisateur updateUtilisateur(@PathVariable String matricule, @RequestBody Utilisateur utilisateur){
     return utilisateurService.updateUtilisateur(matricule,utilisateur);
 }
 @DeleteMapping("/delete/{id}")
@@ -30,7 +30,7 @@ private final UtilisateurServiceImpl utilisateurService;
     return utilisateurService.deleteUtilisateur(matricule);
 }
 @GetMapping("/get/{id}")
-    public Utilisateur getUtilisateur(@PathVariable long matricule){
+    public Utilisateur getUtilisateur(@PathVariable String matricule){
     return utilisateurService.getUtilisateur(matricule);
 }
 @PostMapping("/add")

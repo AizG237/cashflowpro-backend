@@ -39,6 +39,7 @@ public class FactureService implements FactureServiceImpl{
             fact.setMontant(facture.getMontant());
             fact.setDelai(facture.getDelai());
             fact.setType(facture.getType());
+            fact.setDate_paiement(facture.getDate_paiement());
             fact.setNomsociete(facture.getNomsociete());
             fact.setDate_reception(facture.getDate_reception());
             return factureRepository.save(fact);

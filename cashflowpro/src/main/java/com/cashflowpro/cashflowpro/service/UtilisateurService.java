@@ -12,9 +12,9 @@ import java.util.List;
 public class UtilisateurService implements UtilisateurServiceImpl {
     private final UtilisateurRepository utilisateurRepository;
     @Override
-    public Utilisateur getUtilisateur(long matricule) {
+    public Utilisateur getUtilisateur(String matricule) {
         //JE SOUHAITE RETOURNE UN UTILISATEUR GRACE AU MATRICULE
-        return utilisateurRepository.findById(matricule).orElseThrow(() -> new RuntimeException("UTILISATEUR NON EXISTANT DANS NOTRE SYSTEME"));
+        return utilisateurRepository.findByMatricule(matricule).orElseThrow(() -> new RuntimeException("UTILISATEUR NON EXISTANT DANS NOTRE SYSTEME"));
     }
 
     @Override
@@ -36,8 +36,8 @@ public class UtilisateurService implements UtilisateurServiceImpl {
     }
 
     @Override
-    public Utilisateur updateUtilisateur(long matricule, Utilisateur utilisateur) {
-        return utilisateurRepository.findById(matricule)
+    public Utilisateur updateUtilisateur(String matricule, Utilisateur utilisateur) {
+        return utilisateurRepository.findByMatricule(matricule)
                 .map(u-> {
                     u.setEmail(utilisateur.getEmail());
                     u.setNom(utilisateur.getNom());
@@ -47,6 +47,7 @@ public class UtilisateurService implements UtilisateurServiceImpl {
                    // u.setCompte(utilisateur.getCompte());
                     u.setDatenaiss(utilisateur.getDatenaiss());
                     u.setTelephone(utilisateur.getTelephone());
+                    u.setSalaire(utilisateur.getSalaire());
                     return utilisateurRepository.save(u);
                 }).orElseThrow(() -> new RuntimeException("Utilisateur inexistant dans le système"));
     }
