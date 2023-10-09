@@ -22,11 +22,11 @@ public class FactureService implements FactureServiceImpl{
     }
 
     @Override
-    public String deleteFacture(long id_facture) {
-         factureRepository.deleteById(id_facture);
+    public String deleteFacture(String numero) {
+      long id =  factureRepository.findByNumero(numero).getId_facture();
+         factureRepository.deleteById(id);
          return "Facture supprimée !!!";
     }
-
     @Override
     public Facture addFacture(Facture facture) {
         return factureRepository.save(facture);

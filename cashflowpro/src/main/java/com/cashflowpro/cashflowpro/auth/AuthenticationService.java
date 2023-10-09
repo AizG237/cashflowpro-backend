@@ -63,7 +63,7 @@ public class AuthenticationService implements UserDetailsService {
     //EMPLOYE
     public ResponseEntity<?> register(RegisterRequestEmploye request) {
         Optional<Role> role = roleRepository.findByRoleName(request.getRole().toUpperCase());
-        if (!repository.findByEmail(request.getEmail()).isPresent() && role.equals(roleRepository.findByRoleName("EMPLOYE"))){
+        if (!repository.findByEmail(request.getEmail()).isPresent()){
             var user = Utilisateur.builder()
                     .matricule(request.getMatricule())
                     .nom(request.getFirstname())
@@ -100,6 +100,8 @@ public class AuthenticationService implements UserDetailsService {
                     .role(role.get())               //.compte(0)
                     .datenaiss(request.getDatenaiss())
                     .telephone(request.getTelephone())
+                    .salaire(request.getSalaire())
+                    .matricule(request.getMatricule())
                     .build();
             repository.save(user);
             var jwtToken = jwtService.generateToken(user);
@@ -125,9 +127,11 @@ public class AuthenticationService implements UserDetailsService {
                var user = repository.findByEmail(request.getEmail()).orElseThrow();
 
         var jwtToken = jwtService.generateToken(user);
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .role(user.getRole().getNom_role())
+                .nom(repository.findByEmail(request.getEmail()).get().getNom())
                 .build();
 
     }

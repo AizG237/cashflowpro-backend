@@ -18,24 +18,24 @@ public class ClientController {
     private final ClientInterface clientInterface;
     // @Autowired
     //  private ClientService cfpservice;
-    @GetMapping("/Client/getAll")
+    @GetMapping("/getAll")
     public List<Client> getClient(){
         //Client Clients = new Client("DOnfack","Pavel","Login","123", Client.Role.Client);
         return clientInterface.getAllClient();
     }
-    @GetMapping("/Client/get/{matricule}")
+    @GetMapping("/get/{matricule}")
     public Client getClient(@PathVariable long matricule){
         return clientInterface.getClient(matricule);
     }
-    @DeleteMapping("/Client/delete/{matricule}")
+    @DeleteMapping("/delete/{matricule}")
     public void deleteClient(@PathVariable long matricule){
         clientInterface.deleteCLient(matricule);
     }
-    @PostMapping("/Client/add")
+    @PostMapping("/add")
     public Client addClient(@RequestBody Client client){
         return  clientInterface.addClient(client);
     }
-    @PutMapping("/Client/update/{matricule}")
+    @PutMapping("/update/{matricule}")
     public String updateClient(@PathVariable long matricule, @RequestBody Client client){
         clientInterface.addClient(client);
         return "Client ajouté";

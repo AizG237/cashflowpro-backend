@@ -12,14 +12,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequestEmploye {
-
     private String firstname;
     private String lastname;
     private String email;
-    private String password = "azerty";
+    private String password;
     private Date datenaiss;
     private long telephone;
-    private String role = "EMPLOYE";
     private String matricule;
-    private float salaire;
+    private int salaire;
+    private String role = "EMPLOYE";
 }

@@ -28,8 +28,8 @@ private final FactureService factureService;;
         return factureService.getFacture(id_facture);
     }
     @DeleteMapping("/delete/{id_Facture}")
-    public void deleteFacture(@PathVariable long id_facture){
-        factureService.deleteFacture(id_facture);
+    public void deleteFacture(@PathVariable String numero){
+        factureService.deleteFacture(numero);
     }
     @PostMapping("/add/manuel")
     public Facture addFacture(@RequestBody Facture facture){
@@ -37,8 +37,19 @@ private final FactureService factureService;;
        facture.setEtat(Facture.Etat.NONPAYEE);
         return  factureService.addFacture(facture);
     }
+    @PostMapping("/add/auto")
+    public Facture addFactureauto(@RequestBody Facture facture){
+        facture.setType(Facture.Type.AUTOMATIQUE);
+        facture.setEtat(Facture.Etat.NONPAYEE);
+        return  factureService.addFacture(facture);
+    }
     @PutMapping("/update/{id_Facture}")
     public String updateFacture(@PathVariable long id_Facture, @RequestBody Facture facture){
+        factureService.addFacture(facture);
+        return "LE STRING LA DERANGE";
+    }
+    @PutMapping("/update/{id_FactureAuto}")
+    public String updateFactureauto(@PathVariable long id_Facture, @RequestBody Facture facture){
         factureService.addFacture(facture);
         return "LE STRING LA DERANGE";
     }

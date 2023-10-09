@@ -28,8 +28,8 @@ public class UtilisateurDto {
    //protected float compte;
     protected Date datenaiss;
     protected long telephone;
-   //protected PlanInvestDto planInvestDto;
-   //private List<PlanInvestDto> planInvestsDto;
+   //protected PlanInvestDtoService planInvestDto;
+   //private List<PlanInvestDtoService> planInvestsDto;
     private Role role;
 
     public UtilisateurDto fromEntity(Utilisateur utilisateur){

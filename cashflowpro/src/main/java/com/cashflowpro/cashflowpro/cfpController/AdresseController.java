@@ -25,19 +25,19 @@ public class AdresseController {
         //Adresse Adresses = new Adresse("DOnfack","Pavel","Login","123", Adresse.Role.Adresse);
         return adresseServiceImp.getAllAdresse();
     }
-    @GetMapping("/Adresse/get/{id_adresse}")
+    @GetMapping("/get/{id_adresse}")
     public Adresse getAdresse(@PathVariable long id_adresse){
         return adresseServiceImp.getAdresse(id_adresse);
     }
-    @DeleteMapping("/Adresse/delete/{id_adresse}")
+    @DeleteMapping("/delete/{id_adresse}")
     public void deleteAdresse(@PathVariable long id_adresse){
         adresseServiceImp.deleteAdresse(id_adresse);
     }
-    @PostMapping("/Adresse/add")
+    @PostMapping("/add")
     public Adresse addAdresse(@RequestBody Adresse Adresse){
         return  adresseServiceImp.addAdresse(Adresse);
     }
-    @PutMapping("/Adresse/update/{id_adresse}")
+    @PutMapping("/update/{id_adresse}")
     public String updateAdresse(@PathVariable long id_adresse, @RequestBody Adresse Adresse){
         adresseServiceImp.addAdresse(Adresse);
         return "LE STRING LA DERANGE";

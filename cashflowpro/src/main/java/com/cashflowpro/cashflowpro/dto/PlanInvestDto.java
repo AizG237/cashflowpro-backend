@@ -14,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class PlanInvestDto {
+
+    //plan d'investissement
     private long id_planinvest;
     private String nominvest;
     private int dureemin;
@@ -21,39 +23,74 @@ public class PlanInvestDto {
     private String nomactif;
     private int montantmin;
     private float rendementmoyen;
-    private Broker broker;
-    private UtilisateurDto utilisateurDto;
 
-    public PlanInvestDto fromEntity(PlanInvest planInvest){
+    //Broker
+
+    private String nomBroker;
+    private String situationBroker;
+    private String autoriteregulationBroker;
+    private String couverturefiscaleBroker;
+    private Date datecreationBroker;
+    private Date dateouverturecptBroker;
+
+
+    //Utilisateur qui initialise
+
+
+    public PlanInvestDto fromEntity(PlanInvest planInvest, Broker broker){
         if (planInvest == null){
             return null;
         }
+        // PLAN INVESTISSEMENT
         PlanInvestDto planInvestDto = new PlanInvestDto();
         planInvestDto.setId_planinvest(planInvest.getId_planinvest());
         planInvestDto.setNomactif(planInvest.getNomactif());
         planInvestDto.setNominvest(planInvest.getNominvest());
         planInvestDto.setDateinit(planInvest.getDateinit());
         planInvestDto.setDureemin(planInvest.getDureemin());
-        planInvestDto.setBroker(planInvest.getBroker());
         planInvestDto.setRendementmoyen(planInvest.getRendementmoyen());
-       // planInvestDto.setUtilisateurDto.
+
+        //BROKER
+        planInvestDto.setNomBroker(broker.getNom());
+        planInvestDto.setSituationBroker(broker.getSituation());
+        planInvestDto.setAutoriteregulationBroker(broker.getAutoriteregulation());
+        planInvestDto.setCouverturefiscaleBroker(broker.getCouverturefiscale());
+        planInvestDto.setDatecreationBroker(broker.getDatecreation());
+        planInvestDto.setDateouverturecptBroker(broker.getDateouverturecpt());
+
+
         return planInvestDto;
     }
 
-    public PlanInvest toEntity(PlanInvestDto planInvestDto){
+    public PlanInvest toEntityPlanInvest(PlanInvestDto planInvestDto){
         if (planInvestDto == null){
             return null;
-        }
+        }else{
         PlanInvest planInvest = new PlanInvest();
         planInvest.setId_planinvest(planInvestDto.getId_planinvest());
         planInvest.setNomactif(planInvestDto.getNomactif());
         planInvest.setNominvest(planInvestDto.getNominvest());
         planInvest.setDateinit(planInvestDto.getDateinit());
         planInvest.setDureemin(planInvestDto.getDureemin());
-        planInvest.setBroker(planInvestDto.getBroker());
         planInvest.setRendementmoyen(planInvestDto.getRendementmoyen());
         // planInvestDto.setUtilisateurDto(planInvest.getUtilisateur());
-        return planInvest;
+        return planInvest;}
+    }
+
+    public Broker toEntityBroker(PlanInvestDto planInvestDto){
+        if (planInvestDto == null){
+            return null;
+        }else{
+            Broker broker = new Broker();
+            broker.setNom(planInvestDto.getNomBroker());
+            broker.setDateouverturecpt(planInvestDto.getDateouverturecptBroker());
+            broker.setCouverturefiscale(planInvestDto.getCouverturefiscaleBroker());
+            broker.setSituation(planInvestDto.getSituationBroker());
+            broker.setAutoriteregulation(planInvestDto.getAutoriteregulationBroker());
+            broker.setDatecreation(planInvestDto.getDatecreationBroker());
+            return broker;
+        }
+
     }
 
 

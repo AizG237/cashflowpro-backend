@@ -19,5 +19,7 @@ public class RegisterRequestDirecteur {
     private String password;
     private Date datenaiss;
     private long telephone;
-    private String role = "EMPLOYE";
+    private String matricule;
+    private int salaire;
+    private String role = "DIRECTEUR";
 }

@@ -15,6 +15,8 @@ public class Facture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_facture;
     @Column
+    private String numero;
+    @Column
     private String nomsociete;
     @Column
     private int montant;

@@ -13,11 +13,11 @@ import java.util.List;
 @Data
 public class PlanInvestController {
     private final PlanInvestServiceImpl planInvestService;
-
-    @PostMapping("/add")
-    public void ajouterPlaninvest(@RequestBody PlanInvest Planinvest){
-      planInvestService.addPlaninvest(Planinvest);
-    }
+//
+//    @PostMapping("/add")
+//    public void ajouterPlaninvest(@RequestBody PlanInvest Planinvest){
+//      planInvestService.addPlaninvest(Planinvest);
+//    }
 
     //read
     @GetMapping("/get/{id}")
