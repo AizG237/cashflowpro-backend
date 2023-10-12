@@ -31,7 +31,7 @@ private final PrestationRepository prestationRepository;
                 .map(p ->{
                     p.setDomaine(prestation.getDomaine());
                     p.setLibelle(prestation.getLibelle());
-                    p.setDuree(prestation.getDuree());
+                    p.setDate_livraison(prestation.getDate_livraison());
                     p.setMontant_paye(prestation.getMontant_paye());
                     p.setMontant_total(prestation.getMontant_total());
                     p.setNom_projet(prestation.getNom_projet());

@@ -22,7 +22,7 @@ public class Prestation {
     @Column
     private String Domaine;
     @Column
-    private int duree;
+    private int Date_livraison;
     @Column
     private String nom_projet;
     @Column

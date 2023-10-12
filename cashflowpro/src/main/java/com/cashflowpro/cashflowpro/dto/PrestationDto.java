@@ -30,7 +30,7 @@ public class PrestationDto {
         prestationDto.setId_prestation(prestation.getId_prestation());
         prestationDto.setLibelle(prestation.getLibelle());
         prestationDto.setDomaine(prestation.getDomaine());
-        prestationDto.setDuree(prestation.getDuree());
+        prestationDto.setDuree(prestation.getDate_livraison());
         prestationDto.setNom_projet(prestation.getNom_projet());
         prestationDto.setMontant_paye(prestation.getMontant_paye());
         prestationDto.setMontant_paye(prestation.getMontant_paye());
@@ -46,7 +46,7 @@ public class PrestationDto {
         prestation.setId_prestation(prestationDto.getId_prestation());
         prestation.setLibelle(prestationDto.getLibelle());
         prestation.setDomaine(prestationDto.getDomaine());
-        prestation.setDuree(prestationDto.getDuree());
+        prestation.setDate_livraison(prestationDto.getDuree());
         prestation.setNom_projet(prestationDto.getNom_projet());
         prestation.setMontant_paye(prestationDto.getMontant_paye());
         prestation.setMontant_paye(prestationDto.getMontant_paye());

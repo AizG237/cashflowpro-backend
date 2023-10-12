@@ -25,5 +25,17 @@ public class Transaction {
     @Column
     private String motif;
     @Column
+    private long destinateur;
+    @Column
+    private long destinataire;
+    @Column
+    private float montant;
+    @Column
     private boolean type_cashflow;
+
+    public Transaction(String motif, long destinataire, float montant) {
+        this.motif = motif;
+        this.destinataire = destinataire;
+        this.montant = montant;
+    }
 }
